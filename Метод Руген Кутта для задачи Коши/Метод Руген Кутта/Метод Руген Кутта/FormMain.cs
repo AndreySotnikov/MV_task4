@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Метод_Руген_Кутта
+namespace Rugen_Kutt
 {
     public partial class FormMain : Form
     {
@@ -19,9 +19,9 @@ namespace Метод_Руген_Кутта
         {
             InitializeComponent();
             FileName = "";
-            comboBoxFunc.Items.Add("x^2");
-            comboBoxFunc.Items.Add("Exp(x)");
-            comboBoxFunc.Items.Add("cos(x)");
+            comboBoxFunc.Items.Add("x+y");
+            comboBoxFunc.Items.Add("cos(x)+cos(y)");
+            comboBoxFunc.Items.Add("cos(y)*e^x");
             comboBoxFunc.SelectedIndex = 0;
         }
 
@@ -45,17 +45,17 @@ namespace Метод_Руген_Кутта
             {
                 case 0:
                     {
-                        f = (x,y) => Math.Pow(x, 2);
+                        f = (x,y) => x - y;
                         break;
                     }
                 case 1:
                     {
-                        f = (x, y) => Math.Exp(x);
+                        f = (x, y) => Math.Cos(x) + Math.Cos(y);
                         break;
                     }
                 case 2:
                     {
-                        f = (x, y) => Math.Cos(x);
+                        f = (x, y) => Math.Exp(x)*Math.Cos(x+y);
                         break;
                     }
             }

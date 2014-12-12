@@ -1,4 +1,4 @@
-﻿namespace Метод_Руген_Кутта
+﻿namespace Rugen_Kutt
 {
     partial class FormMain
     {

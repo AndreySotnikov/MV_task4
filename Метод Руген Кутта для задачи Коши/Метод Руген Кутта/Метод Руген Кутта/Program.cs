@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Метод_Руген_Кутта
+namespace Rugen_Kutt
 {
     static class Program
     {
