@@ -1,4 +1,4 @@
-﻿namespace Rugen_Kutt
+﻿namespace Runge_Kutt
 {
     partial class FormMain
     {
@@ -255,6 +255,7 @@
             this.Controls.Add(this.textBoxFileName);
             this.Controls.Add(this.buttonOpenFile);
             this.Name = "FormMain";
+            this.Text = "Метод Рунге-Кутта";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

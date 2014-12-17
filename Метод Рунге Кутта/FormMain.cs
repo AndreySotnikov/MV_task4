@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Rugen_Kutt
+namespace Runge_Kutt
 {
     public partial class FormMain : Form
     {
@@ -66,14 +66,14 @@ namespace Rugen_Kutt
                         break;
                     }
             }
-            Ruger_Kutta R_K = new Ruger_Kutta(FileName, f, dataGridView1, label4,label5,label6);
+            Runge_Kutt R_K = new Runge_Kutt(FileName, f, dataGridView1, label4,label5,label6);
             if (!R_K.LoadFomFile())
             {
                 MessageBox.Show("Ошибка при загрузки данных из файла", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             R_K.Task();
-            MessageBox.Show("Задача успешно выполнена. Данные сохранены в файле " + Ruger_Kutta.outFileName, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Задача успешно выполнена. Данные сохранены в файле " + Runge_Kutt.outFileName, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

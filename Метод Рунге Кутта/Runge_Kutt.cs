@@ -7,11 +7,11 @@ using System.IO;
 using System.Windows.Forms;
 
 
-namespace Rugen_Kutt
+namespace Runge_Kutt
 {
     public delegate double Func(double x, double y);
     
-    public class Ruger_Kutta
+    public class Runge_Kutt
     {
         private double A;
         private double B;
@@ -30,7 +30,7 @@ namespace Rugen_Kutt
 
         public static string outFileName = "outFile.txt";
 
-        public Ruger_Kutta(string _inFileName, Func _f, DataGridView _dgv, Label _l1, Label _l2, Label _l3)
+        public Runge_Kutt(string _inFileName, Func _f, DataGridView _dgv, Label _l1, Label _l2, Label _l3)
         {
             inFileName = _inFileName;
             f = _f;

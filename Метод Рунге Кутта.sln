@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Метод Руген Кутта", "Метод Руген Кутта\Метод Руген Кутта.csproj", "{486FB192-219C-4A70-9446-2C74E3CFA827}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Метод Рунге Кутта", "Метод Рунге Кутта\Метод Рунге Кутта.csproj", "{486FB192-219C-4A70-9446-2C74E3CFA827}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

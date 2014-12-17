@@ -34,3 +34,7 @@ D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Руген Кутт
 D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Руген Кутта для задачи Коши\Метод Руген Кутта\Метод Руген Кутта\obj\Debug\Rugen_Kutt.FormMain.resources
 D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Руген Кутта для задачи Коши\Метод Руген Кутта\Метод Руген Кутта\obj\Debug\Rugen_Kutt.Properties.Resources.resources
 D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Руген Кутта для задачи Коши\Метод Руген Кутта\Метод Руген Кутта\obj\Debug\Метод Руген Кутта.csproj.GenerateResource.Cache
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Руген Кутта\bin\Debug\Метод Руген Кутта.exe.config
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Руген Кутта\obj\Debug\Метод Руген Кутта.exe
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Руген Кутта\obj\Debug\Метод Руген Кутта.pdb
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Руген Кутта\bin\Debug\Метод Рунге-Кутта.exe.config

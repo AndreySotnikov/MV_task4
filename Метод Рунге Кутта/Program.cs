@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Rugen_Kutt
+namespace Runge_Kutt
 {
     static class Program
     {

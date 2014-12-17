@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Rugen_Kutt.Properties {
+namespace Runge_Kutt.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

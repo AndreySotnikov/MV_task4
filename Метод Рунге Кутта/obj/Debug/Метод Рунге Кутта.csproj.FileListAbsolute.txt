@@ -1,0 +1,8 @@
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\bin\Debug\Метод Рунге-Кутта.exe.config
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\bin\Debug\Метод Рунге-Кутта.exe
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\bin\Debug\Метод Рунге-Кутта.pdb
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\obj\Debug\Runge_Kutt.FormMain.resources
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\obj\Debug\Runge_Kutt.Properties.Resources.resources
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\obj\Debug\Метод Рунге Кутта.csproj.GenerateResource.Cache
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\obj\Debug\Метод Рунге-Кутта.exe
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\obj\Debug\Метод Рунге-Кутта.pdb
