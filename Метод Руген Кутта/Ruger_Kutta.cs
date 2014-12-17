@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
+
 
 namespace Rugen_Kutt
 {
@@ -19,18 +21,24 @@ namespace Rugen_Kutt
         private double eps_max;
         private Func f;
         private string inFileName;
-        private int CountPoint;
-        private int CountMinH;
-        private int CountBadPoints;
+        private int CountPoint = 0;
+        private int CountMinH = 0;
+        private int CountBadPoints = 0;
         private int s;
+        DataGridView dgv;
+        Label l1,l2,l3;
 
         public static string outFileName = "outFile.txt";
 
-        public Ruger_Kutta(string _inFileName, Func _f)
+        public Ruger_Kutta(string _inFileName, Func _f, DataGridView _dgv, Label _l1, Label _l2, Label _l3)
         {
             inFileName = _inFileName;
             f = _f;
             s = 2;
+            dgv = _dgv;
+            l1 = _l1;
+            l2 = _l2;
+            l3 = _l3;
         }
 
         private string ReadWord(string str, ref int i)
@@ -88,6 +96,7 @@ namespace Rugen_Kutt
             {
                 IsBadTry = true;
                 h /= 2;
+                CurY = Second(x, y, h);
                 eps = Math.Abs(CalculationError(CurY, x, y, h));
             }
             if (Math.Abs(h) <= h_min)
@@ -152,12 +161,23 @@ namespace Rugen_Kutt
             double CurY = Yc;
             double PredH = h;
             StreamWriter TxtOut = new StreamWriter(new BufferedStream(new FileStream(outFileName, FileMode.Create, FileAccess.Write)));
+            dgv.RowCount++;
+            dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
+            dgv.Rows[dgv.RowCount - 1].Cells[1].Value = x;
+            dgv.Rows[dgv.RowCount - 1].Cells[2].Value = y;
+            dgv.Rows[dgv.RowCount - 1].Cells[3].Value = (0).ToString("E2");
             for (; CalcValue(h,x) > h_min; CountPoint++)
             {
+                eps = 0;
                 CurY = Second(x, y, h);
                 h = CalcStep(CurY, y, x, PredH, ref Bad, out eps);
                 y = CurY;
                 x += PredH;
+                dgv.RowCount++;
+                dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
+                dgv.Rows[dgv.RowCount - 1].Cells[1].Value = x;
+                dgv.Rows[dgv.RowCount - 1].Cells[2].Value = y;
+                dgv.Rows[dgv.RowCount - 1].Cells[3].Value = eps.ToString("E2");
                 TxtOut.WriteLine("x = " + x.ToString() + " y = " + y.ToString() + " eps = " + eps.ToString("E2"));
                 PredH = h;
             }
@@ -168,12 +188,26 @@ namespace Rugen_Kutt
                 h = B - x - Math.Sign(h) * h_min;
                 CurY = Second(x, y, h);
                 x += h;
-                TxtOut.WriteLine("x = " + x.ToString() + " y = " + y.ToString() + " eps = " + CalculationError(CurY, x, y, h).ToString("E2"));
+                ////////////////
+                dgv.RowCount++;
+                dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
+                dgv.Rows[dgv.RowCount - 1].Cells[1].Value = x;
+                dgv.Rows[dgv.RowCount - 1].Cells[2].Value = CurY;
+                dgv.Rows[dgv.RowCount - 1].Cells[3].Value = CalculationError(Second(x, y, h), x, y, h).ToString("E2");
+                ////////////////
+                TxtOut.WriteLine("x = " + x.ToString() + " y = " + CurY.ToString() + " eps = " + CalculationError(Second(x, y, h), x, y, h).ToString("E2"));
                 y = CurY;
                 h = Math.Sign(h) * h_min; 
                 CurY = Second(x, y, h);
                 x += h;
-                TxtOut.WriteLine("x = " + B.ToString() + " y = " + y.ToString() + " eps = " + CalculationError(CurY, x, y, h).ToString("E2"));
+                ////////////////
+                dgv.RowCount++;
+                dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
+                dgv.Rows[dgv.RowCount - 1].Cells[1].Value = B;
+                dgv.Rows[dgv.RowCount - 1].Cells[2].Value = CurY;
+                dgv.Rows[dgv.RowCount - 1].Cells[3].Value = CalculationError(Second(x, y, h), x, y, h).ToString("E2");
+                ////////////////
+                TxtOut.WriteLine("x = " + B.ToString() + " y = " + CurY.ToString() + " eps = " + CalculationError(Second(x, y, h), x, y, h).ToString("E2"));
                 y = CurY;
             }
             else
@@ -183,7 +217,14 @@ namespace Rugen_Kutt
                     CountPoint++;
                     h = B - x;
                     CurY = Second(x, y, h);
-                    TxtOut.WriteLine("x = " + B.ToString() + " y = " + y.ToString() + " eps = " + CalculationError(CurY, x, y, h).ToString("E2"));
+                    ////////////////
+                    dgv.RowCount++;
+                    dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
+                    dgv.Rows[dgv.RowCount - 1].Cells[1].Value = B;
+                    dgv.Rows[dgv.RowCount - 1].Cells[2].Value = CurY;
+                    dgv.Rows[dgv.RowCount - 1].Cells[3].Value = CalculationError(Second(x, y, h), x, y, h).ToString("E2");
+                    ////////////////
+                    TxtOut.WriteLine("x = " + B.ToString() + " y = " + CurY.ToString() + " eps = " + CalculationError(Second(x, y, h), x, y, h).ToString("E2"));
                     y = CurY;
                 }
                 else
@@ -192,14 +233,31 @@ namespace Rugen_Kutt
                     CountMinH += 2;
                     h = (B - x) / 2;
                     CurY = Second(x, y, h);
-                    TxtOut.WriteLine("x = " + x.ToString() + " y = " + y.ToString() + " eps = " + CalculationError(CurY, x, y, h).ToString("E2"));
+                    ////////////////
+                    dgv.RowCount++;
+                    dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
+                    dgv.Rows[dgv.RowCount - 1].Cells[1].Value = x;
+                    dgv.Rows[dgv.RowCount - 1].Cells[2].Value = CurY;
+                    dgv.Rows[dgv.RowCount - 1].Cells[3].Value = CalculationError(Second(x, y, h), x, y, h).ToString("E2");
+                    ////////////////
+                    TxtOut.WriteLine("x = " + x.ToString() + " y = " + Second(x, y, h).ToString() + " eps = " + CalculationError(CurY, x, y, h).ToString("E2"));
                     x += h;
                     y = CurY;
                     CurY = Second(x, y, h);
-                    TxtOut.WriteLine("x = " + B.ToString() + " y = " + y.ToString() + " eps = " + CalculationError(CurY, x, y, h).ToString("E2"));
+                    ////////////////
+                    dgv.RowCount++;
+                    dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
+                    dgv.Rows[dgv.RowCount - 1].Cells[1].Value = B;
+                    dgv.Rows[dgv.RowCount - 1].Cells[2].Value = CurY;
+                    dgv.Rows[dgv.RowCount - 1].Cells[3].Value = CalculationError(Second(x, y, h), x, y, h).ToString("E2");
+                    ////////////////
+                    TxtOut.WriteLine("x = " + B.ToString() + " y = " + CurY.ToString() + " eps = " + CalculationError(Second(x, y, h), x, y, h).ToString("E2"));
                     y = CurY;
                 }
             }
+            l1.Text = CountPoint.ToString();
+            l2.Text = CountBadPoints.ToString();
+            l3.Text = CountMinH.ToString();
             TxtOut.WriteLine("Количество точек интегрирования " + CountPoint.ToString());
             TxtOut.WriteLine("Число точек, в которых не достигается точность " + CountBadPoints.ToString());
             TxtOut.WriteLine("Количество точек с минимальным шагом " + CountMinH.ToString());
