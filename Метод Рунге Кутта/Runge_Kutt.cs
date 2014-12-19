@@ -80,15 +80,27 @@ namespace Runge_Kutt
             return true;
         }
 
-        private double CalculationError(double CurY, double x, double y, double h)
+        private double CalculationError(double x, double y, double h)
         {
-            double MoreCool = Fouth(x, y, h); 
-            return Math.Abs(MoreCool - CurY) / (Math.Pow(2, s) - 1);
+            double good = Fouth(x, y, h);
+            double bad = Second(x, y, h);
+            return Math.Abs(good - bad) / (Math.Pow(2, s) - 1);
         }
 
         private double CalcStep(double CurY, double y, double x, double h, ref bool IsBadTry, out double eps)
         {
-            eps = Math.Abs(CalculationError(CurY, x, y, h));            
+            eps = CalculationError(x, y, h);
+            if (!IsBadTry && (eps < eps_max / Math.Pow(2, s)))
+                return h * 2;
+            IsBadTry = false;
+            while ((Math.Abs(h) > h_min) && eps > eps_max)
+            {
+                IsBadTry = true;
+                h /= 2;
+                eps = CalculationError(x, y, h);
+            }
+            /*
+            eps = Math.Abs(CalculationError(CurY, x, y, h));
             if (!IsBadTry && (eps < eps_max / Math.Pow(2, s)))
                 return h * 2;
             IsBadTry = false;
@@ -96,9 +108,10 @@ namespace Runge_Kutt
             {
                 IsBadTry = true;
                 h /= 2;
-                CurY = Second(x, y, h);
+                //CurY = Second(x, y, h);
                 eps = Math.Abs(CalculationError(CurY, x, y, h));
             }
+             */
             if (Math.Abs(h) <= h_min)
             {
                 h =Math.Sign(h)* h_min;
@@ -107,6 +120,7 @@ namespace Runge_Kutt
             if (eps > eps_max)
                 CountBadPoints++;
             return h;
+
         }
 
         private double Second(double x, double y, double h)
@@ -170,6 +184,7 @@ namespace Runge_Kutt
             {
                 eps = 0;
                 CurY = Second(x, y, h);
+                double tmpeps = CalculationError(x, y, h)*3;
                 h = CalcStep(CurY, y, x, PredH, ref Bad, out eps);
                 y = CurY;
                 x += PredH;
@@ -177,8 +192,8 @@ namespace Runge_Kutt
                 dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
                 dgv.Rows[dgv.RowCount - 1].Cells[1].Value = x;
                 dgv.Rows[dgv.RowCount - 1].Cells[2].Value = y;
-                dgv.Rows[dgv.RowCount - 1].Cells[3].Value = eps.ToString("E2");
-                TxtOut.WriteLine("x = " + x.ToString() + " y = " + y.ToString() + " eps = " + eps.ToString("E2"));
+                dgv.Rows[dgv.RowCount - 1].Cells[3].Value = tmpeps.ToString("E2");
+                TxtOut.WriteLine("x = " + x.ToString() + " y = " + y.ToString() + " eps = " + tmpeps.ToString("E2"));
                 PredH = h;
             }
             if (CalcVal(x, h) >= 2 * h_min)
@@ -189,25 +204,27 @@ namespace Runge_Kutt
                 CurY = Second(x, y, h);
                 x += h;
                 ////////////////
+                eps = 3 * CalculationError(x, y, h);
                 dgv.RowCount++;
                 dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
                 dgv.Rows[dgv.RowCount - 1].Cells[1].Value = x;
                 dgv.Rows[dgv.RowCount - 1].Cells[2].Value = CurY;
-                dgv.Rows[dgv.RowCount - 1].Cells[3].Value = CalculationError(Second(x, y, h), x, y, h).ToString("E2");
+                dgv.Rows[dgv.RowCount - 1].Cells[3].Value = eps.ToString("E2");
                 ////////////////
-                TxtOut.WriteLine("x = " + x.ToString() + " y = " + CurY.ToString() + " eps = " + CalculationError(Second(x, y, h), x, y, h).ToString("E2"));
+                TxtOut.WriteLine("x = " + x.ToString() + " y = " + CurY.ToString() + " eps = " + eps.ToString("E2"));
                 y = CurY;
                 h = Math.Sign(h) * h_min; 
                 CurY = Second(x, y, h);
                 x += h;
+                eps = 3 * CalculationError(x, y, h);
                 ////////////////
                 dgv.RowCount++;
                 dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
                 dgv.Rows[dgv.RowCount - 1].Cells[1].Value = B;
                 dgv.Rows[dgv.RowCount - 1].Cells[2].Value = CurY;
-                dgv.Rows[dgv.RowCount - 1].Cells[3].Value = CalculationError(Second(x, y, h), x, y, h).ToString("E2");
+                dgv.Rows[dgv.RowCount - 1].Cells[3].Value = eps.ToString("E2");
                 ////////////////
-                TxtOut.WriteLine("x = " + B.ToString() + " y = " + CurY.ToString() + " eps = " + CalculationError(Second(x, y, h), x, y, h).ToString("E2"));
+                TxtOut.WriteLine("x = " + B.ToString() + " y = " + CurY.ToString() + " eps = " + eps.ToString("E2"));
                 y = CurY;
             }
             else
@@ -217,14 +234,15 @@ namespace Runge_Kutt
                     CountPoint++;
                     h = B - x;
                     CurY = Second(x, y, h);
+                    eps = 3 * CalculationError(x, y, h);
                     ////////////////
                     dgv.RowCount++;
                     dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
                     dgv.Rows[dgv.RowCount - 1].Cells[1].Value = B;
                     dgv.Rows[dgv.RowCount - 1].Cells[2].Value = CurY;
-                    dgv.Rows[dgv.RowCount - 1].Cells[3].Value = CalculationError(Second(x, y, h), x, y, h).ToString("E2");
+                    dgv.Rows[dgv.RowCount - 1].Cells[3].Value = eps.ToString("E2");
                     ////////////////
-                    TxtOut.WriteLine("x = " + B.ToString() + " y = " + CurY.ToString() + " eps = " + CalculationError(Second(x, y, h), x, y, h).ToString("E2"));
+                    TxtOut.WriteLine("x = " + B.ToString() + " y = " + CurY.ToString() + " eps = " + eps.ToString("E2"));
                     y = CurY;
                 }
                 else
@@ -233,25 +251,27 @@ namespace Runge_Kutt
                     CountMinH += 2;
                     h = (B - x) / 2;
                     CurY = Second(x, y, h);
+                    eps = 3 * CalculationError(x, y, h);
                     ////////////////
                     dgv.RowCount++;
                     dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
                     dgv.Rows[dgv.RowCount - 1].Cells[1].Value = x;
                     dgv.Rows[dgv.RowCount - 1].Cells[2].Value = CurY;
-                    dgv.Rows[dgv.RowCount - 1].Cells[3].Value = CalculationError(Second(x, y, h), x, y, h).ToString("E2");
+                    dgv.Rows[dgv.RowCount - 1].Cells[3].Value = eps.ToString("E2");
                     ////////////////
-                    TxtOut.WriteLine("x = " + x.ToString() + " y = " + Second(x, y, h).ToString() + " eps = " + CalculationError(CurY, x, y, h).ToString("E2"));
+                    TxtOut.WriteLine("x = " + x.ToString() + " y = " + CurY.ToString() + " eps = " + eps.ToString("E2"));
                     x += h;
                     y = CurY;
                     CurY = Second(x, y, h);
+                    eps = 3 * CalculationError(x, y, h);
                     ////////////////
                     dgv.RowCount++;
                     dgv.Rows[dgv.RowCount - 1].Cells[0].Value = dgv.RowCount;
                     dgv.Rows[dgv.RowCount - 1].Cells[1].Value = B;
                     dgv.Rows[dgv.RowCount - 1].Cells[2].Value = CurY;
-                    dgv.Rows[dgv.RowCount - 1].Cells[3].Value = CalculationError(Second(x, y, h), x, y, h).ToString("E2");
+                    dgv.Rows[dgv.RowCount - 1].Cells[3].Value = eps.ToString("E2");
                     ////////////////
-                    TxtOut.WriteLine("x = " + B.ToString() + " y = " + CurY.ToString() + " eps = " + CalculationError(Second(x, y, h), x, y, h).ToString("E2"));
+                    TxtOut.WriteLine("x = " + B.ToString() + " y = " + CurY.ToString() + " eps = " + eps.ToString("E2"));
                     y = CurY;
                 }
             }

@@ -6,3 +6,4 @@ D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутт
 D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\obj\Debug\Метод Рунге Кутта.csproj.GenerateResource.Cache
 D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\obj\Debug\Метод Рунге-Кутта.exe
 D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\obj\Debug\Метод Рунге-Кутта.pdb
+D:\Labs\3 курс\1 семестр\МВ\MV_task4\Метод Рунге Кутта\obj\Debug\Метод Рунге Кутта.csprojResolveAssemblyReference.cache

@@ -22,7 +22,9 @@ namespace Runge_Kutt
             comboBoxFunc.Items.Add("0");
             comboBoxFunc.Items.Add("2*x");
             comboBoxFunc.Items.Add("2*x-y^2+x^4");
+            comboBoxFunc.Items.Add("3*x^2");
             comboBoxFunc.Items.Add("12*x^2");
+            comboBoxFunc.Items.Add("24*x^2");
             comboBoxFunc.SelectedIndex = 0;
         }
 
@@ -62,7 +64,17 @@ namespace Runge_Kutt
                     }
                 case 3:
                     {
-                        f = (x, y) => 12*Math.Pow(x,2);
+                        f = (x, y) => 3*Math.Pow(x,2);
+                        break;
+                    }
+                case 4:
+                    {
+                        f = (x, y) => 12 * Math.Pow(x, 2);
+                        break;
+                    }
+                case 5:
+                    {
+                        f = (x, y) => 24 * Math.Pow(x, 2);
                         break;
                     }
             }
