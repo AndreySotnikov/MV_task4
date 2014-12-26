@@ -20,9 +20,9 @@ namespace Runge_Kutt
             InitializeComponent();
             FileName = "";
             comboBoxFunc.Items.Add("0");
-            comboBoxFunc.Items.Add("2*x");
+            comboBoxFunc.Items.Add("4x");
             comboBoxFunc.Items.Add("2*x-y^2+x^4");
-            comboBoxFunc.Items.Add("3*x^2");
+            comboBoxFunc.Items.Add("3*x^2+4x+8");
             comboBoxFunc.Items.Add("12*x^2");
             comboBoxFunc.Items.Add("24*x^2");
             comboBoxFunc.SelectedIndex = 0;
@@ -54,7 +54,7 @@ namespace Runge_Kutt
                     }
                 case 1:
                     {
-                        f = (x, y) => 2*x;
+                        f = (x, y) => 4*x;
                         break;
                     }
                 case 2:
@@ -64,7 +64,7 @@ namespace Runge_Kutt
                     }
                 case 3:
                     {
-                        f = (x, y) => 3*Math.Pow(x,2);
+                        f = (x, y) => 3*Math.Pow(x,2)+4*x+8;
                         break;
                     }
                 case 4:
